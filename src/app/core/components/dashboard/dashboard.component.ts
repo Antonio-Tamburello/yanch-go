@@ -2,6 +2,8 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { UserFacade } from '../../store/user/user.facade';
 import { UserState } from '../../store/user/user.reducer';
+import { ButtonComponent } from '@src/app/shared/components/button/button.component';
+import { ButtonConfig } from '@src/app/shared/models/button.model';
 
 /**
  * Represents the DashboardComponent class.
@@ -9,7 +11,9 @@ import { UserState } from '../../store/user/user.reducer';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [],
+  imports: [
+    ButtonComponent,
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
@@ -42,6 +46,13 @@ export class DashboardComponent {
       this.user.set(user);
     }
   );
+
+  buttonConfig: ButtonConfig = {
+    classButtonType: 'btn-primary',
+    typeButtonType: 'button',
+    label: 'Log out',
+    
+  };
 
   /**
    * Logs out the user through UserFacade Pattern.
