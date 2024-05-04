@@ -3,17 +3,36 @@ import { Component, OnInit, inject, input, output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { FormModel, FormOutputModel, InputFormModel } from '../../models/form.model';
+import { CardComponent } from '../card/card.component';
+import { CardModel } from '../../models/card.model';
+
+/**
+ * Array of modules used in the form component.
+ */
+const MODULE = [CommonModule, ReactiveFormsModule, RouterLink];
+
+/**
+ * Array of components used in the component.
+ */
+const COMPONENTS = [CardComponent];
 
 @Component({
   selector: 'app-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [
+    ...MODULE,
+    ...COMPONENTS
+  ],
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss',
 })
 export class FormComponent implements OnInit {
   // Variables
   protected form: FormGroup = new FormGroup({});
+
+  cardModel: CardModel = {
+    cardBodyCustomClass: 'px-5 form__card',
+  };
 
   // Input
   formModel = input.required<FormModel>();

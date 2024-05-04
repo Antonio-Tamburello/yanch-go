@@ -1,9 +1,15 @@
 import { Component, computed, inject, signal } from '@angular/core';
+import { IMAGES } from '@src/app/constants/images';
+import { ButtonComponent } from '@src/app/shared/components/button/button.component';
+import { ButtonConfig } from '@src/app/shared/models/button.model';
 import { Subscription } from 'rxjs';
 import { UserFacade } from '../../store/user/user.facade';
 import { UserState } from '../../store/user/user.reducer';
-import { ButtonComponent } from '@src/app/shared/components/button/button.component';
-import { ButtonConfig } from '@src/app/shared/models/button.model';
+
+/**
+ * Array of components used in the dashboard.
+ */
+const COMPONENTS = [ButtonComponent];
 
 /**
  * Represents the DashboardComponent class.
@@ -12,7 +18,7 @@ import { ButtonConfig } from '@src/app/shared/models/button.model';
   selector: 'app-dashboard',
   standalone: true,
   imports: [
-    ButtonComponent,
+    ...COMPONENTS
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
@@ -31,7 +37,9 @@ export class DashboardComponent {
   /**
    * Computed signal that represents the user's name.
    */
-  name = computed<string>(() => this.user().name || localStorage.getItem('name') || '');
+  name = computed<string>(
+    () => this.user().name || localStorage.getItem('name') || ''
+  );
 
   /**
    * Inject the UserFacade Pattern.
@@ -47,12 +55,39 @@ export class DashboardComponent {
     }
   );
 
-  buttonConfig: ButtonConfig = {
-    classButtonType: 'btn-primary',
+  /**
+   * Array of button configurations for the navbar.
+   * Each button configuration contains properties like classButtonType, typeButtonType, label, and customClass.
+   */
+  buttonsNavbar: ButtonConfig[] = [
+    {
+      classButtonType: 'btn-link',
+      typeButtonType: 'button',
+      label: 'Log out',
+      customClass: 'text-decoration-none text-white',
+    },
+    {
+      classButtonType: 'btn-link',
+      typeButtonType: 'button',
+      label: 'Log out',
+      customClass: 'text-decoration-none text-white',
+    },
+  ];
+
+  /**
+   * Configuration for the logout button.
+   */
+  buttonLogOutConfig: ButtonConfig = {
+    classButtonType: 'btn-link',
     typeButtonType: 'button',
     label: 'Log out',
-    
+    customClass: 'text-decoration-none text-white',
   };
+
+  /**
+   * The logo image for the dashboard component.
+   */
+  imageLogo = IMAGES.YANCHWAREGO_MINI_LOGO;
 
   /**
    * Logs out the user through UserFacade Pattern.
