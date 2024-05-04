@@ -25,3 +25,18 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Open API Mocker
+
+To install the `open-api-mocker` package globally, run the following command:
+```npm i -g open-api-mocker```
+
+## Open API Start Mock Server
+To start the mock server run the `server-start` script:
+```npm run server start```
+
+Or you can choose to launch direct the follow command in the root of this project:
+```open-api-mocker -s server/sr.frontend.challenge.yml -p 1234 -w```
+
+`-p 1234` set the local port, feel free to choose whatever you want
+
