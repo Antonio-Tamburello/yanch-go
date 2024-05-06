@@ -37,7 +37,15 @@ export class LoginComponent {
         customClass: 'mb-3',
       },
     ],
-    buttonElements: [{ type: 'primary', label: 'Sign in' }],
+    buttonElements: [
+      {
+        id: 'signin',
+        classButtonType: 'btn-primary',
+        typeButtonType: 'submit',
+        label: 'Sign in',
+        customClass: 'w-100',
+      },
+    ],
     footerText: {
       text: 'Don’t you have an account?',
       labelLink: 'Create new one',
@@ -58,7 +66,6 @@ export class LoginComponent {
     .subscribe((token) => {
       console.log('Token:', token);
     });
-
 
   onSubmitForm(formOutputModel: FormOutputModel) {
     this.userFacade.login({

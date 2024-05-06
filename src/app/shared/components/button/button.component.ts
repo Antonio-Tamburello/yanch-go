@@ -14,5 +14,5 @@ import { ButtonConfig } from '../../models/button.model';
 export class ButtonComponent {
 
   buttonConfig = input.required<ButtonConfig>();
-
+  isDisabled = input<boolean>(false);
 }

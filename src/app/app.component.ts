@@ -29,17 +29,14 @@ export class AppComponent {
   alertPopupService = inject(AlertPopupService);
 
   // Variables
-  alertPopupConfig = signal<AlertPopupConfig>({
-    alertType: 'success',
-    label: 'test',
-    isVisible: true,
-  });
+  alertPopupConfig = signal<AlertPopupConfig>({} as AlertPopupConfig);
   isVisible = signal<boolean>(false);
 
   // Subscription
   alertPopupSubject$: Subscription = this.alertPopupService.alertPopupSubject.pipe(
     filter(Boolean)
-  ).subscribe((alertPopupConfig: AlertPopupConfig) =>{
+  ).subscribe((alertPopupConfig: AlertPopupConfig) => {
+    this.alertPopupConfig.set(alertPopupConfig);
     this.isVisible.set(alertPopupConfig.isVisible);
   });
 

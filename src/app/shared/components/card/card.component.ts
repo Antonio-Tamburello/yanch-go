@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { CardModel } from '../../models/card.model';
+import { CardConfig } from '../../models/card.model';
 
 @Component({
   selector: 'app-card',
@@ -12,5 +12,5 @@ export class CardComponent {
   /**
    * Input with card config object.
    */
-  cardModel = input<CardModel>();
+  cardModel = input<CardConfig>();
 }

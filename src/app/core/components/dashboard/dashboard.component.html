@@ -1,30 +1,12 @@
-<nav class="navbar navbar-expand-lg">
-  <div class="container-fluid">
+<div class="dashboard">
+  <app-navbar [navbarConfig]="navbarConfig" (onClickButton)="onClickButton($event)" />
 
-    <div>
-      <img class="w-100 h-100" [src]="imageLogo">
-    </div>  
-
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        @for(button of buttonsNavbar; track button) {
-        <li class="nav-item">
-          <app-button [buttonConfig]="button" />
-        </li>
-        }
-      </ul>
-
-      <div>
-        <app-button [buttonConfig]="buttonLogOutConfig" (click)="logOut()" />
-      </div>
-
-    </div>
+  <div class="text-center text-white mt-3">
+    <h1>Welcome {{ name() }}</h1>
   </div>
-</nav>
 
-
-<div class="text-center text-white mt-3">
-
-  <h4>Welcome {{ name() }}</h4>
+  <div>
+    <app-search />
+  </div>
 
 </div>

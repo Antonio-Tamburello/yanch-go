@@ -4,7 +4,9 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { FormModel, FormOutputModel, InputFormModel } from '../../models/form.model';
 import { CardComponent } from '../card/card.component';
-import { CardModel } from '../../models/card.model';
+import { CardConfig } from '../../models/card.model';
+import { AlertPopupService } from '../../services/alert-popup.service';
+import { ButtonComponent } from '../button/button.component';
 
 /**
  * Array of modules used in the form component.
@@ -14,7 +16,7 @@ const MODULE = [CommonModule, ReactiveFormsModule, RouterLink];
 /**
  * Array of components used in the component.
  */
-const COMPONENTS = [CardComponent];
+const COMPONENTS = [CardComponent, ButtonComponent];
 
 @Component({
   selector: 'app-form',
@@ -30,7 +32,7 @@ export class FormComponent implements OnInit {
   // Variables
   protected form: FormGroup = new FormGroup({});
 
-  cardModel: CardModel = {
+  cardModel: CardConfig = {
     cardBodyCustomClass: 'px-5 form__card',
   };
 
@@ -42,6 +44,7 @@ export class FormComponent implements OnInit {
 
   // Inject
   formBuilder = inject(FormBuilder);
+  alertPopupService = inject(AlertPopupService);
 
   ngOnInit(): void {
     this.formModel()?.inputElements.forEach((input: InputFormModel) => {
@@ -58,14 +61,22 @@ export class FormComponent implements OnInit {
         this.formModel().type === 'register' &&
         this.form.value.password !== this.form.value['confirm password']
       ) {
-        // Handle password mismatch
-        alert('Passwords do not match');
+        /*
+        * Handle password mismatch with a custom alert popup.
+        */
+        this.alertPopupService.show({
+          alertType: 'danger',
+          label: 'Passwords do not match',
+          isVisible: true,
+        });
         return;
       }
       this.onSubmitForm.emit(this.form.value);
     } else {
       // Handle form validation errors
       console.log('Form is invalid');
+
     }
+    this.form.reset();
   }
 }

@@ -16,7 +16,7 @@ type CardType =
 | 'border-light'
 | 'border-dark';
 
-export interface CardModel {
+export interface CardConfig {
   cardCustomClass?: string;
   cardType?: CardType; 
   cardBodyCustomClass?: string;

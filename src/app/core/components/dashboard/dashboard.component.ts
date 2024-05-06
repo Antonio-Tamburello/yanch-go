@@ -1,15 +1,21 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, OnDestroy, computed, inject, signal } from '@angular/core';
 import { IMAGES } from '@src/app/constants/images';
-import { ButtonComponent } from '@src/app/shared/components/button/button.component';
+import { NavBarComponent } from '@src/app/shared/components/navbar/navbar.component';
 import { ButtonConfig } from '@src/app/shared/models/button.model';
-import { Subscription } from 'rxjs';
+import { NavbarConfig } from '@src/app/shared/models/navbar.model';
+import { Subject, Subscription } from 'rxjs';
 import { UserFacade } from '../../store/user/user.facade';
 import { UserState } from '../../store/user/user.reducer';
+import { CitiesComponent } from '../cities/cities.component';
 
 /**
  * Array of components used in the dashboard.
  */
-const COMPONENTS = [ButtonComponent];
+const COMPONENTS = [
+  NavBarComponent,
+  CitiesComponent,
+];
 
 /**
  * Represents the DashboardComponent class.
@@ -18,12 +24,13 @@ const COMPONENTS = [ButtonComponent];
   selector: 'app-dashboard',
   standalone: true,
   imports: [
+    CommonModule,
     ...COMPONENTS
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnDestroy {
   /**
    * Signal that represents the user state.
    */
@@ -37,15 +44,20 @@ export class DashboardComponent {
   /**
    * Computed signal that represents the user's name.
    */
-  name = computed<string>(
-    () => this.user().name || localStorage.getItem('name') || ''
-  );
+  name = computed<string>(() => this.user().name || localStorage.getItem('name') || '');
 
   /**
    * Inject the UserFacade Pattern.
    **/
   userFacade = inject(UserFacade);
 
+  /**
+   * Subject used to signal the destruction of the component.
+   * This subject is used to unsubscribe from observables and perform cleanup operations.
+   */
+  private destroy$ = new Subject<void>();
+
+  
   /**
    * Reactive subscription to the user state.
    */
@@ -61,15 +73,17 @@ export class DashboardComponent {
    */
   buttonsNavbar: ButtonConfig[] = [
     {
+      id: 'homepage',
       classButtonType: 'btn-link',
       typeButtonType: 'button',
-      label: 'Log out',
+      label: 'Homepage',
       customClass: 'text-decoration-none text-white',
     },
     {
+      id: 'about',
       classButtonType: 'btn-link',
       typeButtonType: 'button',
-      label: 'Log out',
+      label: 'About',
       customClass: 'text-decoration-none text-white',
     },
   ];
@@ -78,6 +92,7 @@ export class DashboardComponent {
    * Configuration for the logout button.
    */
   buttonLogOutConfig: ButtonConfig = {
+    id: 'logout',
     classButtonType: 'btn-link',
     typeButtonType: 'button',
     label: 'Log out',
@@ -85,14 +100,42 @@ export class DashboardComponent {
   };
 
   /**
-   * The logo image for the dashboard component.
+   * Configuration object for the navbar in the dashboard component.
    */
-  imageLogo = IMAGES.YANCHWAREGO_MINI_LOGO;
+  navbarConfig: NavbarConfig = {
+    imgLogo: IMAGES.YANCHWAREGO_MINI_LOGO,
+    buttonsNavbarStart: this.buttonsNavbar,
+    buttonsNavbarEnd: [this.buttonLogOutConfig],
+  };
 
   /**
-   * Logs out the user through UserFacade Pattern.
+   * Handles the click event of a button in the dashboard component.
+   * @param button - The button configuration object.
    */
-  logOut() {
-    this.userFacade.logOut();
+  onClickButton(button: ButtonConfig) {
+    switch (button.id) {
+      /**
+       * Logs out the user through UserFacade Pattern.
+       */
+      case 'logout': {
+        this.userFacade.logOut();
+        break;
+      }
+
+      default: {
+        break;
+      }
+    }
   }
+
+  /**
+   * Lifecycle hook that is called when the component is about to be destroyed.
+   * It is used to perform any necessary cleanup logic, such as unsubscribing from observables or
+   * releasing resources.
+   */
+  ngOnDestroy() {
+    this.token$.unsubscribe();
+    this.destroy$.next();  
+  }
+
 }

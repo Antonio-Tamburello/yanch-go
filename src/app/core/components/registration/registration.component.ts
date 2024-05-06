@@ -55,7 +55,14 @@ export class RegistrationComponent {
         customClass: 'mb-3',
       },
     ],
-    buttonElements: [{ type: 'primary', label: 'Sign up' }],
+    buttonElements: [
+      {
+        id: 'signup',
+        classButtonType: 'btn-primary',
+        typeButtonType: 'submit',
+        label: 'Sign up',
+        customClass: 'w-100',
+      }],
     footerText: {
         text: 'Do you have an account?',
         labelLink: 'Sign in',

@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    baseUrl: 'https://appex.cloud',
+    baseUrl: 'http://localhost:1234',
 }

@@ -21,6 +21,7 @@ type ButtonClassType =
 type ButtonType = 'button' | 'submit' | 'reset';
 
 export interface ButtonConfig {
+  id: string;
   classButtonType: ButtonClassType;
   typeButtonType: ButtonType;
   label: string;

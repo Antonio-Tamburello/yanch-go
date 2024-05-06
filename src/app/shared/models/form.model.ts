@@ -1,18 +1,21 @@
 import { ValidatorFn } from '@angular/forms';
+import { ButtonConfig } from './button.model';
 
 export interface FormOutputModel {
   [key: string]: string;
 }
 
-type TypeFormModel = 'login' | 'register';
+type TypeFormModel = 'login' | 'register' | 'search';
 
 export interface FormModel {
   type: TypeFormModel;
-  backgroundSrc?: string;
-  logoSrc: string;
-  title: TitleFormModel;
   inputElements: InputFormModel[];
-  buttonElements: ButtonFormModel[];
+  buttonElements: ButtonConfig[];
+  
+  title?: TitleFormModel;
+  cardCustomClass?: string;
+  backgroundSrc?: string;
+  logoSrc?: string;
   footerText?: FooterTextModel;
   footerLogo?: FooterLogoModel;
 }
@@ -25,11 +28,6 @@ export interface InputFormModel {
 }
 
 export type InputFormType = 'text' | 'email' | 'password';
-
-export interface ButtonFormModel {
-  type: string;
-  label: string;
-}
 
 export interface TitleFormModel {
   label: string;

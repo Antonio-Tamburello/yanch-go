@@ -1,0 +1,19 @@
+<div class="my-4 dashboard__card">
+  <app-form [formModel]="formModel" (onSubmitForm)="onSubmitForm($event)" />
+</div>
+
+<div>
+
+  <pre>{{ cities() | json }}</pre>
+
+
+  @if (citiesList()) {
+  @for (city of citiesList(); track city) {
+  <div class="ttest">
+    <app-card [cardModel]="cardModel">
+      <pre>{{ city | json }}</pre>
+    </app-card>
+  </div>
+  }
+  }
+</div>

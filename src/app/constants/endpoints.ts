@@ -1,12 +1,7 @@
-
-export const AUTH = {
-    AUTH: 'auth'
+const VERSIONS = {
+  V1: 'v1',
 };
 
 export const ENDPOINTS = {
-    LOGIN: `${AUTH.AUTH}/login`,
-    REGISTER: `${AUTH.AUTH}/register`,
-    VALIDATE_SESSION: `${AUTH.AUTH}/validate_session`,
-    REFRESH_SESSION: `${AUTH.AUTH}/refresh_session`,
-    
-};
+  CITIES: `${VERSIONS.V1}/cities`,
+}

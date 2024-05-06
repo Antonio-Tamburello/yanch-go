@@ -8,6 +8,8 @@ import { UserEffects } from './core/store/user/user.effects';
 import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideEffects } from '@ngrx/effects';
+import { dashboardReducer } from './core/store/dashboard/dashboard.reducer';
+import { DashboardEffects } from './core/store/dashboard/dashboard.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,9 +18,9 @@ export const appConfig: ApplicationConfig = {
 
     provideStore(),
 
-    provideStore({ user: userReducer }),
+    provideStore({ user: userReducer, search: dashboardReducer }),
     provideStoreDevtools(),
-    provideEffects([UserEffects]),
+    provideEffects([UserEffects, DashboardEffects]),
   ],
   
 };
