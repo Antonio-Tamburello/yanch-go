@@ -10,8 +10,8 @@ type TypeFormModel = 'login' | 'register' | 'search';
 export interface FormModel {
   type: TypeFormModel;
   inputElements: InputFormModel[];
-  buttonElements: ButtonConfig[];
   
+  buttonElements?: ButtonConfig[];
   title?: TitleFormModel;
   cardCustomClass?: string;
   backgroundSrc?: string;

@@ -1,19 +1,24 @@
-<div class="my-4 dashboard__card">
-  <app-form [formModel]="formModel" (onSubmitForm)="onSubmitForm($event)" />
-</div>
+<div class="cities">
+  <div class="d-flex justify-content-center">
+    <div class="my-3 cities__card">
+      <!-- <app-card [cardModel]="cardModel">
+        input field -->
 
-<div>
+        <app-form [formModel]="formModel"  />
 
-  <pre>{{ cities() | json }}</pre>
-
-
-  @if (citiesList()) {
-  @for (city of citiesList(); track city) {
-  <div class="ttest">
-    <app-card [cardModel]="cardModel">
-      <pre>{{ city | json }}</pre>
-    </app-card>
+      <!-- </app-card> -->
+    </div>
   </div>
-  }
+  
+  @if (citiesList()) {
+  <div class="mx-3 cities__grid">
+    @for (city of citiesList(); track city) {
+    <div>
+      <app-card [cardModel]="cardModel">
+        <pre>{{ city | json }}</pre>
+      </app-card>
+    </div>
+    }
+  </div>
   }
 </div>

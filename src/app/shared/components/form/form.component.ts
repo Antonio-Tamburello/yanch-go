@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject, input, output } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { FormModel, FormOutputModel, InputFormModel } from '../../models/form.model';
 import { CardComponent } from '../card/card.component';
 import { CardConfig } from '../../models/card.model';
 import { AlertPopupService } from '../../services/alert-popup.service';
 import { ButtonComponent } from '../button/button.component';
+import { InputComponent } from '../input/input.component';
 
 /**
  * Array of modules used in the form component.
@@ -16,7 +17,7 @@ const MODULE = [CommonModule, ReactiveFormsModule, RouterLink];
 /**
  * Array of components used in the component.
  */
-const COMPONENTS = [CardComponent, ButtonComponent];
+const COMPONENTS = [CardComponent, ButtonComponent, InputComponent];
 
 @Component({
   selector: 'app-form',
@@ -78,5 +79,10 @@ export class FormComponent implements OnInit {
 
     }
     this.form.reset();
+  }
+
+
+  updateFormValue(value: FormControl) {
+    this.form.patchValue(value);
   }
 }
