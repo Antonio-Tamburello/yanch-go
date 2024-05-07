@@ -7,6 +7,9 @@ const COMPONENTS = [
   ButtonComponent,
 ];
 
+/**
+ * Represents the navigation bar component.
+ */
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -18,8 +21,14 @@ const COMPONENTS = [
 })
 export class NavBarComponent {
 
+  /**
+   * The configuration for the navigation bar.
+   */
   navbarConfig = input.required<NavbarConfig>();
 
+  /**
+   * Event emitted when a button in the navigation bar is clicked.
+   */
   onClickButton = output<ButtonConfig>();
 
 }

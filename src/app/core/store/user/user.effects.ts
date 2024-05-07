@@ -16,36 +16,38 @@ import {
 
 @Injectable()
 export class UserEffects {
-  // Inject
+  // Inject dependencies
   action$ = inject(Actions);
   loginRegisterService = inject(LoginRegisterService);
 
-  /*
-  * Constructor
-  */
+  /**
+   * Constructor
+   * @param router - The router service
+   */
   constructor(private router: Router) {}
 
-  /*
-  * Set user data and redirect to the router
-  */
-  private setUserDataRedirect({ token, name, router }: UserData) {
-    localStorage.setItem('token', token);
-    localStorage.setItem('name', name);
-    this.router.navigate([router]);
+  /**
+   * Set user data into localstorage and redirect to the specified router
+   * @param userData - The user data to be set
+   */
+  private setUserDataRedirect(userData: UserData): void {
+    localStorage.setItem('token', userData.token);
+    localStorage.setItem('name', userData.name);
+    this.router.navigate([userData.router]);
   }
 
-  /*
-  * Remove user data and redirect to the login page
-  */
-  private removeUserDataRedirect() {
+  /**
+   * Remove user data and redirect to the login page
+   */
+  private removeUserDataRedirect(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('name');
     this.router.navigate([ROUTE.LOGIN]);
   }
 
-  /*
-  * Login effect, set the user data and redirect to the dashboard
-  */
+  /**
+   * Login effect, set the user data and redirect to the dashboard
+   */
   public login$ = createEffect(() =>
     this.action$.pipe(
       ofType(login),
@@ -61,9 +63,9 @@ export class UserEffects {
     )
   );
 
-  /*
-  * Register effect, set the user data and redirect to the dashboard
-  */
+  /**
+   * Register effect, set the user data and redirect to the dashboard
+   */
   public register$ = createEffect(() =>
     this.action$.pipe(
       ofType(register),
@@ -79,9 +81,9 @@ export class UserEffects {
     )
   );
 
-  /*
-  * Log out effect, remove the user data and redirect to the login page
-  */
+  /**
+   * Log out effect, remove the user data and redirect to the login page
+   */
   public logOut$ = createEffect(() =>
     this.action$.pipe(
       ofType(logOut),

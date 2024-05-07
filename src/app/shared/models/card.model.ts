@@ -1,3 +1,6 @@
+/**
+ * Represents the type of a card, which can be one of the following:
+ */
 type CardType =
 'text-bg-primary'
 | 'text-bg-secondary'
@@ -16,9 +19,11 @@ type CardType =
 | 'border-light'
 | 'border-dark';
 
+/**
+ * Represents the configuration options for a card.
+ */
 export interface CardConfig {
   cardCustomClass?: string;
-  cardType?: CardType; 
+  cardType?: CardType;
   cardBodyCustomClass?: string;
-
 }

@@ -9,6 +9,9 @@ import { AlertPopupConfig } from './shared/models/alert-popup.model';
 import { AlertPopupService } from './shared/services/alert-popup.service';
 import { Subscription, filter } from 'rxjs';
 
+/**
+ * The root component of the application.
+ */
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -23,21 +26,33 @@ import { Subscription, filter } from 'rxjs';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
+  /**
+   * The title of the application.
+   */
   title = 'yanchware-go';
 
-  // Inject
+  /**
+   * Service for displaying alert popups.
+   */
   alertPopupService = inject(AlertPopupService);
 
-  // Variables
+  /**
+   * The configuration for the alert popup.
+   */
   alertPopupConfig = signal<AlertPopupConfig>({} as AlertPopupConfig);
+
+  /**
+   * Indicates whether the alert popup is visible or not.
+   */
   isVisible = signal<boolean>(false);
 
-  // Subscription
+  /**
+   * Subscription for the alert popup subject.
+   */
   alertPopupSubject$: Subscription = this.alertPopupService.alertPopupSubject.pipe(
     filter(Boolean)
   ).subscribe((alertPopupConfig: AlertPopupConfig) => {
     this.alertPopupConfig.set(alertPopupConfig);
     this.isVisible.set(alertPopupConfig.isVisible);
   });
-
 }

@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "server-start": "open-api-mocker -s server/sr.frontend.challenge.yml -p 1234 -w"
+    "server-start": "open-api-mocker -s server/sr.frontend.challenge.yml -p 1234 -w",
+    "generate-documentation": "compodoc -p tsconfig.doc.json -s"
   },
   "private": true,
   "dependencies": {

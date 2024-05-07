@@ -27,6 +27,9 @@ const MODULE = [CommonModule, ReactiveFormsModule, RouterLink];
  */
 const COMPONENTS = [CardComponent, ButtonComponent];
 
+/**
+ * Represents a form component.
+ */
 @Component({
   selector: 'app-form',
   standalone: true,
@@ -38,22 +41,38 @@ export class FormComponent implements OnInit {
   // Variables
   protected form: FormGroup = new FormGroup({});
 
+  /**
+   * Represents the configuration for the card in the form component.
+   */
   cardModel: CardConfig = {
     cardBodyCustomClass: 'px-5 form__card',
   };
 
   // Input
+  /**
+   * Represents the model for the form.
+   */
   formModel = input.required<FormModel>();
 
   // Output
+  /**
+   * Event emitted when the form is submitted.
+   */
   onSubmitForm = output<FormOutputModel>();
 
+  /**
+   * Event emitted when the search value changes.
+   */
   searchValueChanges = output<string>();
 
   // Inject
   formBuilder = inject(FormBuilder);
   alertPopupService = inject(AlertPopupService);
 
+  /**
+   * Subscribes to the value changes of the search form and emits the search value.
+   * @param value - The form control value.
+   */
   searchFormValueChanges = this.form.valueChanges.subscribe((value: FormControl) => {
     this.searchValueChanges.emit(Object.values(value)[0]);
   });
@@ -67,6 +86,9 @@ export class FormComponent implements OnInit {
     });
   }
 
+  /**
+   * Handles the form submission.
+   */
   onSubmit() {
     if (this.form.valid) {
       if (
@@ -91,8 +113,11 @@ export class FormComponent implements OnInit {
     this.form.reset();
   }
 
+  /**
+   * Updates the form value with the given value.
+   * @param value - The form control value.
+   */
   updateFormValue(value: FormControl) {
     this.form.patchValue(value);
   }
-
 }

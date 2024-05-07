@@ -8,6 +8,10 @@ import { FormComponent } from '@src/app/shared/components/form/form.component';
 import { FormModel, FormOutputModel } from '@src/app/shared/models/form.model';
 import { LoginRegisterService } from '../../services/loginRegisterService.service';
 
+/**
+ * Represents the LoginComponent class.
+ * This component is responsible for handling the login functionality.
+ */
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -16,7 +20,9 @@ import { LoginRegisterService } from '../../services/loginRegisterService.servic
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  // Variables
+  /**
+   * Represents the form model for the login component.
+   */
   formModel: FormModel = {
     type: 'login',
     logoSrc: IMAGES.YANCHWAREGO_LOGO,
@@ -61,12 +67,20 @@ export class LoginComponent {
   userFacade = inject(UserFacade);
   loginRegisterService = inject(LoginRegisterService);
 
+  /**
+   * Represents the subscription to the token$ observable.
+   * It logs the token value when it is emitted.
+   */
   token: Subscription = this.userFacade.token$
     .pipe(filter(Boolean))
     .subscribe((token) => {
       console.log('Token:', token);
     });
 
+  /**
+   * Handles the form submission event.
+   * @param formOutputModel - The output model of the form.
+   */
   onSubmitForm(formOutputModel: FormOutputModel) {
     this.userFacade.login({
       email: formOutputModel['email'],

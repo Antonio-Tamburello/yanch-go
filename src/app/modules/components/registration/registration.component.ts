@@ -7,6 +7,9 @@ import { ROUTE } from '../../../constants/route';
 import { LoginRegisterService } from '../../services/loginRegisterService.service';
 import { UserFacade } from '../../../core/store/user/user.facade';
 
+/**
+ * Represents the Registration Component.
+ */
 @Component({
   selector: 'app-registration',
   standalone: true,
@@ -15,10 +18,11 @@ import { UserFacade } from '../../../core/store/user/user.facade';
   styleUrl: './registration.component.scss',
 })
 export class RegistrationComponent {
-  // Variables
+  /**
+   * Represents the form model for registration.
+   */
   formModel: FormModel = {
     type: 'register',
-
     logoSrc: IMAGES.YANCHWAREGO_LOGO,
     title: {
       label: 'Create an account'
@@ -74,10 +78,16 @@ export class RegistrationComponent {
     },
   };
 
-  // Inject
+  /**
+   * Inject Service for handling login and registration functionality.
+   */
   loginRegisterService = inject(LoginRegisterService);
   userFacade = inject(UserFacade);
 
+  /**
+   * Handles the form submission event.
+   * @param formOutputModel - The output model from the form.
+   */
   onSubmitForm(formOutputModel: FormOutputModel) {
     this.userFacade.register({
       name: formOutputModel['name'],

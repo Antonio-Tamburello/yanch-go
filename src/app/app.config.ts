@@ -11,6 +11,9 @@ import { provideEffects } from '@ngrx/effects';
 import { dashboardReducer } from './core/store/dashboard/dashboard.reducer';
 import { DashboardEffects } from './core/store/dashboard/dashboard.effects';
 
+/**
+ * Configuration object for the application.
+ */
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withViewTransitions()),

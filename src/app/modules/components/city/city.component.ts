@@ -15,6 +15,10 @@ import { Subject, Subscription, filter, map, take, takeUntil } from 'rxjs';
 const MODULES = [CommonModule, RouterLink];
 const COMPONENTS = [CardComponent, ButtonComponent, BarChartComponent, StarRatingComponent];
 
+/**
+ * Represents the CityComponent class.
+ * This component is responsible for displaying city information.
+ */
 @Component({
   selector: 'app-city',
   standalone: true,
@@ -23,14 +27,29 @@ const COMPONENTS = [CardComponent, ButtonComponent, BarChartComponent, StarRatin
   styleUrl: './city.component.scss',
 })
 export class CityComponent implements OnDestroy {
+  /**
+   * The router object for navigating between routes.
+   */
   router = inject(Router);
 
+  /**
+   * The ID of the city.
+   */
   cityId = signal<string>('');
 
+  /**
+   * Represents the city information.
+   */
   city = signal<CityInfoResponse>({} as CityInfoResponse);
 
+  /**
+   * The constant representing the route for the city component.
+   */
   public ROUTE = ROUTE;
 
+  /**
+   * Configuration for the button element.
+   */
   buttonElement: ButtonConfig = {
     id: 'back',
     classButtonType: 'btn-outline-primary',
@@ -38,18 +57,29 @@ export class CityComponent implements OnDestroy {
     label: 'Go back to cities',
   };
 
+  /**
+   * Configuration object for the card.
+   */
   cardConfig: CardConfig = {
     cardCustomClass: 'h-100'
   }
-
 
   /**
    * Inject the DashboardFacade Pattern.
    */
   dashboardFacade = inject(DashboardFacade);
 
+  /**
+   * Subject used to signal the destruction of the component.
+   * It emits a void value when the component is destroyed.
+   */
   private destroy$ = new Subject<void>();
 
+  /**
+   * Subscription for router events related to navigation.
+   * It listens for NavigationEnd events, extracts the city ID from the URL,
+   * and retrieves the city data using the dashboardFacade.
+   */
   routerSubscirption: Subscription = this.router.events
     .pipe(
       filter((event) => event instanceof NavigationEnd),
@@ -62,6 +92,11 @@ export class CityComponent implements OnDestroy {
       return this.dashboardFacade.getCity(this.cityId());
     });
 
+  /**
+   * Subscription property that retrieves the city information.
+   * It subscribes to the `getCity$` observable and sets the city information
+   * to the `city` property of the component.
+   */
   getCity: Subscription = this.dashboardFacade.getCity$
     .pipe(
       filter((city) => {
@@ -74,6 +109,10 @@ export class CityComponent implements OnDestroy {
       this.city.set(city);
     });
 
+  /**
+   * Lifecycle hook that is called when the component is destroyed.
+   * It resets the city in the DashboardFacade and unsubscribes from observables.
+   */
   ngOnDestroy() {
     this.dashboardFacade.resetCity();
     this.destroy$.next();

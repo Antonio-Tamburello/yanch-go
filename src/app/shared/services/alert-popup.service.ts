@@ -6,14 +6,21 @@ import { AlertPopupConfig, TIMER } from '../models/alert-popup.model';
   providedIn: 'root',
 })
 export class AlertPopupService {
-  // Variables
+  /**
+   * Timer used to control the visibility of the alert popup.
+   */
   private timer: ReturnType<typeof setTimeout> = setTimeout(() => {}, 0);
 
-  // Observable
+  /**
+   * Subject used to emit alert popup configurations.
+   */
   alertPopupSubject: Subject<AlertPopupConfig> =
     new Subject<AlertPopupConfig>();
 
-  // Show alert popup
+  /**
+   * Shows the alert popup with the specified configuration.
+   * @param alertPopupConfig The configuration for the alert popup.
+   */
   show(alertPopupConfig: AlertPopupConfig) {
     this.alertPopupSubject.next({ ...alertPopupConfig, isVisible: true });
     this.timer = setTimeout(() => {
@@ -21,7 +28,9 @@ export class AlertPopupService {
     }, TIMER + 500);
   }
 
-  // Hide alert popup
+  /**
+   * Hides the alert popup.
+   */
   hide() {
     this.alertPopupSubject.next({
       ...({} as AlertPopupConfig),

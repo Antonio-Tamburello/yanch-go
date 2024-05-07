@@ -1,6 +1,9 @@
 import { Component, input } from '@angular/core';
 import { CardConfig } from '../../models/card.model';
 
+/**
+ * Represents a card component.
+ */
 @Component({
   selector: 'app-card',
   standalone: true,

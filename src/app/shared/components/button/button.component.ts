@@ -2,6 +2,9 @@ import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ButtonConfig } from '../../models/button.model';
 
+/**
+ * Represents a custom button component.
+ */
 @Component({
   selector: 'app-button',
   standalone: true,
@@ -13,6 +16,13 @@ import { ButtonConfig } from '../../models/button.model';
 })
 export class ButtonComponent {
 
+  /**
+   * The configuration for the button.
+   */
   buttonConfig = input.required<ButtonConfig>();
+
+  /**
+   * Indicates whether the button is disabled.
+   */
   isDisabled = input<boolean>(false);
 }

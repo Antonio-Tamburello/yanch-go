@@ -1,7 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ENDPOINTS } from '@src/app/constants/endpoints';
-import { environment } from '@src/environments/environment.prod';
 import { Observable, of } from 'rxjs';
 import { Cities, CityInfoResponse, GetCitiesPayload } from '../../core/models/dashboard.model';
 
@@ -11,7 +9,14 @@ import { Cities, CityInfoResponse, GetCitiesPayload } from '../../core/models/da
 export class DashboardService {
   constructor(private http: HttpClient) {}
 
+  /**
+   * Retrieves a list of cities.
+   * @param limit - The maximum number of cities to retrieve. Default is 20.
+   * @param offset - The number of cities to skip. Default is 0.
+   * @returns An Observable of type Cities containing the list of cities.
+   */
   getCities({ limit = 20, offset = 0 }: GetCitiesPayload): Observable<Cities> {
+    // FIXME: Remove this hardcoded response and uncomment line 31 to test whit real data
     return of({ cities: [
       { cityId: '1', name: 'New York', country: 'USA' },
       { cityId: '2', name: 'Los Angeles', country: 'USA' },
@@ -26,8 +31,13 @@ export class DashboardService {
     // return this.http.get<Cities>(`${environment.baseUrl}/${ENDPOINTS.CITIES}?limit=${limit}&offset=${offset}`);
   }
 
-  getCity(cityId: string): Observable<CityInfoResponse> {    
-
+  /**
+   * Retrieves detailed information about a specific city.
+   * @param cityId - The ID of the city to retrieve information for.
+   * @returns An Observable of type CityInfoResponse containing the city information.
+   */
+  getCity(cityId: string): Observable<CityInfoResponse> {
+    // FIXME: Remove this hardcoded response and uncomment line 55 to test whit real data
     return of({
       cityId: '1',
       name: 'New York',
@@ -43,6 +53,5 @@ export class DashboardService {
       climate: { averageTemperature: 24, rainfall: 82 },
     } as CityInfoResponse);
     // return this.http.get<CityInfoResponse>(`${environment.baseUrl}/${ENDPOINTS.CITIES}/${cityId}`);
-
   }
 }

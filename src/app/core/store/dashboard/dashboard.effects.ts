@@ -1,15 +1,29 @@
 import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { map, switchMap } from 'rxjs';
 import { DashboardService } from '../../../modules/services/dashboard.service';
-import { cities, citiesSuccess, getCity, getCitySuccess } from './dashboard.actions';
-import { map, of, switchMap } from 'rxjs';
 import { Cities, CityInfoResponse, GetCitiesPayload } from '../../models/dashboard.model';
+import { cities, citiesSuccess, getCity, getCitySuccess } from './dashboard.actions';
 
+/**
+ * Injectable class representing the effects for the dashboard feature.
+ */
 @Injectable()
 export class DashboardEffects {
+  /**
+   * Observable stream of actions.
+   */
   action$ = inject(Actions);
+
+  /**
+   * The service responsible for handling dashboard-related functionality.
+   */
   dashboardService = inject(DashboardService);
 
+  /**
+   * Effect for handling the login action.
+   * Retrieves the cities based on the provided payload and dispatches the citiesSuccess action.
+   */
   public login$ = createEffect(() =>
     this.action$.pipe(
       ofType(cities),
@@ -25,6 +39,10 @@ export class DashboardEffects {
     )
   );
 
+  /**
+   * Effect for handling the getCity action.
+   * Retrieves the city information based on the provided cityId and dispatches the getCitySuccess action.
+   */
   public getCity$ = createEffect(() =>
     this.action$.pipe(
       ofType(getCity),
