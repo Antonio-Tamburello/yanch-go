@@ -39,12 +39,12 @@ export class DashboardComponent implements OnDestroy {
   /**
    * Computed signal that represents the user's token.
    */
-  token = computed<string>(() => this.user().token);
+  token = computed<string>(() => this.user()?.token);
 
   /**
    * Computed signal that represents the user's name.
    */
-  name = computed<string>(() => this.user().name || localStorage.getItem('name') || '');
+  name = computed<string>(() => this.user()?.name || localStorage.getItem('name') || '');
 
   /**
    * Inject the UserFacade Pattern.

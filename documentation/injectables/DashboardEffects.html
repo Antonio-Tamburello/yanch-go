@@ -258,8 +258,14 @@
           .pipe(
             map((city: CityInfoResponse) &#x3D;&gt; {
               return getCitySuccess({ city });
+            }),
+            catchError((error: any) &#x3D;&gt; {
+              // Handle the error here
+              console.log(&#x27;Error: &#x27;, error);
+              
+              return of();
             })
-          )
+          ),
       )
     )
   )</code>
@@ -335,7 +341,7 @@ Retrieves the cities based on the provided payload and dispatches the citiesSucc
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, inject } from &#x27;@angular/core&#x27;;
 import { Actions, createEffect, ofType } from &#x27;@ngrx/effects&#x27;;
-import { map, switchMap } from &#x27;rxjs&#x27;;
+import { catchError, map, of, switchMap } from &#x27;rxjs&#x27;;
 import { DashboardService } from &#x27;../../../modules/services/dashboard.service&#x27;;
 import { Cities, CityInfoResponse, GetCitiesPayload } from &#x27;../../models/dashboard.model&#x27;;
 import { cities, citiesSuccess, getCity, getCitySuccess } from &#x27;./dashboard.actions&#x27;;
@@ -387,8 +393,14 @@ export class DashboardEffects {
           .pipe(
             map((city: CityInfoResponse) &#x3D;&gt; {
               return getCitySuccess({ city });
+            }),
+            catchError((error: any) &#x3D;&gt; {
+              // Handle the error here
+              console.log(&#x27;Error: &#x27;, error);
+              
+              return of();
             })
-          )
+          ),
       )
     )
   );

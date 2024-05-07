@@ -52,9 +52,7 @@ export class CitiesComponent implements OnInit, OnDestroy {
    * Computed property for getting the filtered list of cities based on the city filter name.
    */
   citiesListFiltered = computed<City[]>(() =>
-    this.citiesList().filter((city) =>
-      city.name.toLowerCase().includes(this.cityFilterName().toLowerCase())
-    )
+    this.citiesList()?.filter((city) => city.name.toLowerCase().includes(this.cityFilterName().toLowerCase()))
   );
 
   /**

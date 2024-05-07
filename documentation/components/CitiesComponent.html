@@ -300,8 +300,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="129"
-                                    class="link-to-prism">src/app/core/components/cities/cities.component.ts:129</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="127"
+                                    class="link-to-prism">src/app/core/components/cities/cities.component.ts:127</a></div>
                         </td>
                     </tr>
 
@@ -374,8 +374,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="121"
-                                    class="link-to-prism">src/app/core/components/cities/cities.component.ts:121</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="119"
+                                    class="link-to-prism">src/app/core/components/cities/cities.component.ts:119</a></div>
                         </td>
                     </tr>
 
@@ -413,8 +413,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="114"
-                                    class="link-to-prism">src/app/core/components/cities/cities.component.ts:114</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="112"
+                                    class="link-to-prism">src/app/core/components/cities/cities.component.ts:112</a></div>
                         </td>
                     </tr>
 
@@ -468,7 +468,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="79" class="link-to-prism">src/app/core/components/cities/cities.component.ts:79</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="77" class="link-to-prism">src/app/core/components/cities/cities.component.ts:77</a></div>
                         </td>
                     </tr>
 
@@ -540,7 +540,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="105" class="link-to-prism">src/app/core/components/cities/cities.component.ts:105</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="103" class="link-to-prism">src/app/core/components/cities/cities.component.ts:103</a></div>
                         </td>
                     </tr>
 
@@ -598,9 +598,7 @@
                 <tr>
                     <td class="col-md-4">
                         <i>Default value : </i><code>computed&lt;City[]&gt;(() &#x3D;&gt;
-    this.citiesList().filter((city) &#x3D;&gt;
-      city.name.toLowerCase().includes(this.cityFilterName().toLowerCase())
-    )
+    this.citiesList()?.filter((city) &#x3D;&gt; city.name.toLowerCase().includes(this.cityFilterName().toLowerCase()))
   )</code>
                     </td>
                 </tr>
@@ -668,7 +666,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="100" class="link-to-prism">src/app/core/components/cities/cities.component.ts:100</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="98" class="link-to-prism">src/app/core/components/cities/cities.component.ts:98</a></div>
                         </td>
                     </tr>
 
@@ -700,7 +698,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="95" class="link-to-prism">src/app/core/components/cities/cities.component.ts:95</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="93" class="link-to-prism">src/app/core/components/cities/cities.component.ts:93</a></div>
                         </td>
                     </tr>
 
@@ -748,7 +746,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/core/components/cities/cities.component.ts:63</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/core/components/cities/cities.component.ts:61</a></div>
                         </td>
                     </tr>
 
@@ -780,7 +778,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">src/app/core/components/cities/cities.component.ts:90</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="88" class="link-to-prism">src/app/core/components/cities/cities.component.ts:88</a></div>
                         </td>
                     </tr>
 
@@ -853,9 +851,7 @@ export class CitiesComponent implements OnInit, OnDestroy {
    * Computed property for getting the filtered list of cities based on the city filter name.
    */
   citiesListFiltered &#x3D; computed&lt;City[]&gt;(() &#x3D;&gt;
-    this.citiesList().filter((city) &#x3D;&gt;
-      city.name.toLowerCase().includes(this.cityFilterName().toLowerCase())
-    )
+    this.citiesList()?.filter((city) &#x3D;&gt; city.name.toLowerCase().includes(this.cityFilterName().toLowerCase()))
   );
 
   /**
@@ -963,6 +959,16 @@ export class CitiesComponent implements OnInit, OnDestroy {
     &lt;/div&gt;
     }
   &lt;/div&gt;
+  } @else {
+  &lt;div class&#x3D;&quot;d-flex justify-content-center&quot;&gt;
+    &lt;div class&#x3D;&quot;w-50&quot;&gt;
+      &lt;app-card&gt;
+        &lt;div class&#x3D;&quot;d-flex justify-content-center&quot;&gt;
+          &lt;h4&gt;No cities found&lt;/h4&gt;
+        &lt;/div&gt;
+      &lt;/app-card&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
   }
 &lt;/div&gt;</code></pre>
     </div>
@@ -993,7 +999,7 @@ export class CitiesComponent implements OnInit, OnDestroy {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="cities">  <div class="d-flex justify-content-center">    <div class="my-3 cities__card">      <app-form [formModel]="formModel" (searchValueChanges)="filterCities($event)" />    </div>  </div>  @if (citiesListFiltered()) {  <div class="mx-3 cities__grid"    [ngClass]="{\'cities__grid__element\': citiesListFiltered().length <= 2, \'cities__grid__elements\': citiesListFiltered().length > 2, }">    @for (city of citiesListFiltered(); track city) {    <div>      <app-card>        <div>          <img [src]="\'https://placehold.co/200x200\'" class="w-100 object-fit-cover" />        </div>        <div class="d-flex justify-content-between mt-2">          <h4>{{ city.name }}</h4>          <h4>{{ city.country }}</h4>        </div>        <app-button [buttonConfig]="buttonElement" [routerLink]="\'/\' + ROUTE.CITY + \'/\' + city.cityId"></app-button>      </app-card>    </div>    }  </div>  }</div></div>'
+        var COMPONENT_TEMPLATE = '<div><div class="cities">  <div class="d-flex justify-content-center">    <div class="my-3 cities__card">      <app-form [formModel]="formModel" (searchValueChanges)="filterCities($event)" />    </div>  </div>  @if (citiesListFiltered()) {  <div class="mx-3 cities__grid"    [ngClass]="{\'cities__grid__element\': citiesListFiltered().length <= 2, \'cities__grid__elements\': citiesListFiltered().length > 2, }">    @for (city of citiesListFiltered(); track city) {    <div>      <app-card>        <div>          <img [src]="\'https://placehold.co/200x200\'" class="w-100 object-fit-cover" />        </div>        <div class="d-flex justify-content-between mt-2">          <h4>{{ city.name }}</h4>          <h4>{{ city.country }}</h4>        </div>        <app-button [buttonConfig]="buttonElement" [routerLink]="\'/\' + ROUTE.CITY + \'/\' + city.cityId"></app-button>      </app-card>    </div>    }  </div>  } @else {  <div class="d-flex justify-content-center">    <div class="w-50">      <app-card>        <div class="d-flex justify-content-center">          <h4>No cities found</h4>        </div>      </app-card>    </div>  </div>  }</div></div>'
     var COMPONENTS = [{'name': 'AlertPopupComponent', 'selector': 'app-alert-popup'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'ButtonComponent', 'selector': 'app-button'},{'name': 'CardComponent', 'selector': 'app-card'},{'name': 'CitiesComponent', 'selector': 'app-cities'},{'name': 'CityComponent', 'selector': 'app-city'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'FormComponent', 'selector': 'app-form'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavBarComponent', 'selector': 'app-navbar'},{'name': 'RegistrationComponent', 'selector': 'app-registration'},{'name': 'StarRatingComponent', 'selector': 'app-star-rating'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'CitiesComponent'};

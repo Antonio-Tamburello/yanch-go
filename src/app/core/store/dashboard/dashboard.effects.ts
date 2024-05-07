@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, switchMap } from 'rxjs';
+import { catchError, map, of, switchMap } from 'rxjs';
 import { DashboardService } from '../../../modules/services/dashboard.service';
 import { Cities, CityInfoResponse, GetCitiesPayload } from '../../models/dashboard.model';
 import { cities, citiesSuccess, getCity, getCitySuccess } from './dashboard.actions';
@@ -52,8 +52,14 @@ export class DashboardEffects {
           .pipe(
             map((city: CityInfoResponse) => {
               return getCitySuccess({ city });
+            }),
+            catchError((error: any) => {
+              // Handle the error here
+              console.log('Error: ', error);
+              
+              return of();
             })
-          )
+          ),
       )
     )
   );

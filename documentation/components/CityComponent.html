@@ -825,7 +825,7 @@ export class CityComponent implements OnDestroy {
         &lt;app-button [buttonConfig]&#x3D;&quot;buttonElement&quot; [routerLink]&#x3D;&quot;&#x27;/&#x27; + ROUTE.DASHBOARD&quot; /&gt;
       &lt;/div&gt;
 
-      @if (city()) {
+      @if (city().cityId) {
       &lt;div&gt;
         &lt;img [src]&#x3D;&quot;&#x27;https://placehold.co/200x200&#x27;&quot; class&#x3D;&quot;w-100 object-fit-cover&quot; /&gt;
       &lt;/div&gt;
@@ -842,28 +842,32 @@ export class CityComponent implements OnDestroy {
         &lt;app-bar-chart [label]&#x3D;&quot;&#x27;Cost of Living&#x27;&quot; [value]&#x3D;&quot;city().costOfLivingIndex&quot; [isReverse]&#x3D;&quot;true&quot;/&gt;
       &lt;/div&gt;
 
-      &lt;div class&#x3D;&quot;row my-2&quot;&gt;
-        &lt;span class&#x3D;&quot;fw-bold&quot;&gt;Internet Speed&lt;/span&gt;
-        &lt;div class&#x3D;&quot;col-6&quot;&gt;
-          &lt;app-bar-chart [label]&#x3D;&quot;&#x27;Download Mbps&#x27;&quot; [value]&#x3D;&quot;city().internetSpeed.download&quot; /&gt;
-        &lt;/div&gt;
-        &lt;div class&#x3D;&quot;col-6&quot;&gt;
-          &lt;app-bar-chart [label]&#x3D;&quot;&#x27;Upload Mbps&#x27;&quot; [value]&#x3D;&quot;city().internetSpeed.upload&quot; /&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
 
-      &lt;div class&#x3D;&quot;row my-2&quot;&gt;
-        &lt;span class&#x3D;&quot;fw-bold&quot;&gt;Weather Info&lt;/span&gt;
-        &lt;div class&#x3D;&quot;row&quot;&gt;
+      @if (city().internetSpeed) {
+        &lt;div class&#x3D;&quot;row my-2&quot;&gt;
+          &lt;span class&#x3D;&quot;fw-bold&quot;&gt;Internet Speed&lt;/span&gt;
           &lt;div class&#x3D;&quot;col-6&quot;&gt;
-            &lt;span&gt;Temperature {{ city().climate.averageTemperature }}C°&lt;/span&gt;
+            &lt;app-bar-chart [label]&#x3D;&quot;&#x27;Download Mbps&#x27;&quot; [value]&#x3D;&quot;city().internetSpeed.download&quot; /&gt;
           &lt;/div&gt;
           &lt;div class&#x3D;&quot;col-6&quot;&gt;
-            &lt;span&gt;Rainfall {{ city().climate.rainfall }}mm&lt;/span&gt;
+            &lt;app-bar-chart [label]&#x3D;&quot;&#x27;Upload Mbps&#x27;&quot; [value]&#x3D;&quot;city().internetSpeed.upload&quot; /&gt;
           &lt;/div&gt;
         &lt;/div&gt;
+      }
 
-      &lt;/div&gt;
+      @if (city().climate) {
+        &lt;div class&#x3D;&quot;row my-2&quot;&gt;
+          &lt;span class&#x3D;&quot;fw-bold&quot;&gt;Weather Info&lt;/span&gt;
+          &lt;div class&#x3D;&quot;row&quot;&gt;
+            &lt;div class&#x3D;&quot;col-6&quot;&gt;
+              &lt;span&gt;Temperature {{ city().climate.averageTemperature }}C°&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;col-6&quot;&gt;
+              &lt;span&gt;Rainfall {{ city().climate.rainfall }}mm&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;   
+        &lt;/div&gt;
+      }
 
       @if (city().coworkingSpaces) {
       &lt;div class&#x3D;&quot;my-3&quot;&gt;
@@ -871,11 +875,11 @@ export class CityComponent implements OnDestroy {
           &lt;div class&#x3D;&quot;accordion-item&quot;&gt;
             &lt;h2 class&#x3D;&quot;accordion-header&quot;&gt;
               &lt;button class&#x3D;&quot;fw-bold accordion-button collapsed&quot; type&#x3D;&quot;button&quot; data-bs-toggle&#x3D;&quot;collapse&quot;
-                data-bs-target&#x3D;&quot;#collapseTwo&quot; aria-expanded&#x3D;&quot;false&quot; aria-controls&#x3D;&quot;collapseTwo&quot;&gt;
+                data-bs-target&#x3D;&quot;#collapse&quot; aria-expanded&#x3D;&quot;false&quot; aria-controls&#x3D;&quot;collapse&quot;&gt;
                 Coworking Spaces Info
               &lt;/button&gt;
             &lt;/h2&gt;
-            &lt;div id&#x3D;&quot;collapseTwo&quot; class&#x3D;&quot;accordion-collapse collapse&quot; data-bs-parent&#x3D;&quot;#accordionElement&quot;&gt;
+            &lt;div id&#x3D;&quot;collapse&quot; class&#x3D;&quot;accordion-collapse collapse&quot; data-bs-parent&#x3D;&quot;#accordionElement&quot;&gt;
               &lt;div class&#x3D;&quot;accordion-body row&quot;&gt;
                 @for (coworkingSpace of city().coworkingSpaces; track coworkingSpace) {
                 &lt;app-card class&#x3D;&quot;col-6 mt-3&quot; [cardModel]&#x3D;&quot;cardConfig&quot;&gt;
@@ -934,7 +938,7 @@ export class CityComponent implements OnDestroy {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="d-flex justify-content-center w-100 mt-2 city">  <div class="city__card">    <app-card>      <div class="mb-3">        <app-button [buttonConfig]="buttonElement" [routerLink]="\'/\' + ROUTE.DASHBOARD" />      </div>      @if (city()) {      <div>        <img [src]="\'https://placehold.co/200x200\'" class="w-100 object-fit-cover" />      </div>      <div class="d-flex justify-content-between my-2">        <h4>{{ city().name }}</h4>        <h4>{{ city().country }}</h4>      </div>      <div class="my-2">        <app-bar-chart [label]="\'How safe is this city?\'" [value]="city().safetyIndex" />      </div>      <div class="my-2">        <app-bar-chart [label]="\'Cost of Living\'" [value]="city().costOfLivingIndex" [isReverse]="true"/>      </div>      <div class="row my-2">        <span class="fw-bold">Internet Speed</span>        <div class="col-6">          <app-bar-chart [label]="\'Download Mbps\'" [value]="city().internetSpeed.download" />        </div>        <div class="col-6">          <app-bar-chart [label]="\'Upload Mbps\'" [value]="city().internetSpeed.upload" />        </div>      </div>      <div class="row my-2">        <span class="fw-bold">Weather Info</span>        <div class="row">          <div class="col-6">            <span>Temperature {{ city().climate.averageTemperature }}C°</span>          </div>          <div class="col-6">            <span>Rainfall {{ city().climate.rainfall }}mm</span>          </div>        </div>      </div>      @if (city().coworkingSpaces) {      <div class="my-3">        <div class="accordion" id="accordionElement">          <div class="accordion-item">            <h2 class="accordion-header">              <button class="fw-bold accordion-button collapsed" type="button" data-bs-toggle="collapse"                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">                Coworking Spaces Info              </button>            </h2>            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionElement">              <div class="accordion-body row">                @for (coworkingSpace of city().coworkingSpaces; track coworkingSpace) {                <app-card class="col-6 mt-3" [cardModel]="cardConfig">                  <div class="w-100">                    <a class="fw-bold" target="_blank" href="https://www.google.com/">{{ coworkingSpace.name }}</a>                  </div>                  <div>                    <span>{{ coworkingSpace.address }}</span>                  </div>                  <div class="text-center">                    <app-star-rating [rating]="coworkingSpace.rating" />                  </div>                </app-card>                }              </div>            </div>          </div>        </div>      </div>      }      } @else {      <h1>No City Found</h1>      }      <!-- <pre>{{ city() | json }}</pre> -->    </app-card>  </div></div></div>'
+        var COMPONENT_TEMPLATE = '<div><div class="d-flex justify-content-center w-100 mt-2 city">  <div class="city__card">    <app-card>      <div class="mb-3">        <app-button [buttonConfig]="buttonElement" [routerLink]="\'/\' + ROUTE.DASHBOARD" />      </div>      @if (city().cityId) {      <div>        <img [src]="\'https://placehold.co/200x200\'" class="w-100 object-fit-cover" />      </div>      <div class="d-flex justify-content-between my-2">        <h4>{{ city().name }}</h4>        <h4>{{ city().country }}</h4>      </div>      <div class="my-2">        <app-bar-chart [label]="\'How safe is this city?\'" [value]="city().safetyIndex" />      </div>      <div class="my-2">        <app-bar-chart [label]="\'Cost of Living\'" [value]="city().costOfLivingIndex" [isReverse]="true"/>      </div>      @if (city().internetSpeed) {        <div class="row my-2">          <span class="fw-bold">Internet Speed</span>          <div class="col-6">            <app-bar-chart [label]="\'Download Mbps\'" [value]="city().internetSpeed.download" />          </div>          <div class="col-6">            <app-bar-chart [label]="\'Upload Mbps\'" [value]="city().internetSpeed.upload" />          </div>        </div>      }      @if (city().climate) {        <div class="row my-2">          <span class="fw-bold">Weather Info</span>          <div class="row">            <div class="col-6">              <span>Temperature {{ city().climate.averageTemperature }}C°</span>            </div>            <div class="col-6">              <span>Rainfall {{ city().climate.rainfall }}mm</span>            </div>          </div>           </div>      }      @if (city().coworkingSpaces) {      <div class="my-3">        <div class="accordion" id="accordionElement">          <div class="accordion-item">            <h2 class="accordion-header">              <button class="fw-bold accordion-button collapsed" type="button" data-bs-toggle="collapse"                data-bs-target="#collapse" aria-expanded="false" aria-controls="collapse">                Coworking Spaces Info              </button>            </h2>            <div id="collapse" class="accordion-collapse collapse" data-bs-parent="#accordionElement">              <div class="accordion-body row">                @for (coworkingSpace of city().coworkingSpaces; track coworkingSpace) {                <app-card class="col-6 mt-3" [cardModel]="cardConfig">                  <div class="w-100">                    <a class="fw-bold" target="_blank" href="https://www.google.com/">{{ coworkingSpace.name }}</a>                  </div>                  <div>                    <span>{{ coworkingSpace.address }}</span>                  </div>                  <div class="text-center">                    <app-star-rating [rating]="coworkingSpace.rating" />                  </div>                </app-card>                }              </div>            </div>          </div>        </div>      </div>      }      } @else {      <h1>No City Found</h1>      }      <!-- <pre>{{ city() | json }}</pre> -->    </app-card>  </div></div></div>'
     var COMPONENTS = [{'name': 'AlertPopupComponent', 'selector': 'app-alert-popup'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BarChartComponent', 'selector': 'app-bar-chart'},{'name': 'ButtonComponent', 'selector': 'app-button'},{'name': 'CardComponent', 'selector': 'app-card'},{'name': 'CitiesComponent', 'selector': 'app-cities'},{'name': 'CityComponent', 'selector': 'app-city'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'FormComponent', 'selector': 'app-form'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavBarComponent', 'selector': 'app-navbar'},{'name': 'RegistrationComponent', 'selector': 'app-registration'},{'name': 'StarRatingComponent', 'selector': 'app-star-rating'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'CityComponent'};

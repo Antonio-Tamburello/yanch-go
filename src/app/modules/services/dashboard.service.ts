@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Cities, CityInfoResponse, GetCitiesPayload } from '../../core/models/dashboard.model';
+import { environment } from '@src/environments/environment.prod';
+import { ENDPOINTS } from '@src/app/constants/endpoints';
 
 @Injectable({
   providedIn: 'root',

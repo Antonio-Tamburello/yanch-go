@@ -537,7 +537,7 @@ This subject is used to unsubscribe from observables and perform cleanup operati
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>computed&lt;string&gt;(() &#x3D;&gt; this.user().name || localStorage.getItem(&#x27;name&#x27;) || &#x27;&#x27;)</code>
+                        <i>Default value : </i><code>computed&lt;string&gt;(() &#x3D;&gt; this.user()?.name || localStorage.getItem(&#x27;name&#x27;) || &#x27;&#x27;)</code>
                     </td>
                 </tr>
                     <tr>
@@ -609,7 +609,7 @@ This subject is used to unsubscribe from observables and perform cleanup operati
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>computed&lt;string&gt;(() &#x3D;&gt; this.user().token)</code>
+                        <i>Default value : </i><code>computed&lt;string&gt;(() &#x3D;&gt; this.user()?.token)</code>
                     </td>
                 </tr>
                     <tr>
@@ -777,12 +777,12 @@ export class DashboardComponent implements OnDestroy {
   /**
    * Computed signal that represents the user&#x27;s token.
    */
-  token &#x3D; computed&lt;string&gt;(() &#x3D;&gt; this.user().token);
+  token &#x3D; computed&lt;string&gt;(() &#x3D;&gt; this.user()?.token);
 
   /**
    * Computed signal that represents the user&#x27;s name.
    */
-  name &#x3D; computed&lt;string&gt;(() &#x3D;&gt; this.user().name || localStorage.getItem(&#x27;name&#x27;) || &#x27;&#x27;);
+  name &#x3D; computed&lt;string&gt;(() &#x3D;&gt; this.user()?.name || localStorage.getItem(&#x27;name&#x27;) || &#x27;&#x27;);
 
   /**
    * Inject the UserFacade Pattern.
