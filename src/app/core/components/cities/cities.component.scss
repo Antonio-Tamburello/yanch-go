@@ -11,7 +11,14 @@
   
   &__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
     grid-gap: 1rem;
+
+    &__element {
+      grid-template-columns: repeat(auto-fit, minmax(20rem, 20rem));
+    }
+
+    &__elements {
+      grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    }
   }
 }

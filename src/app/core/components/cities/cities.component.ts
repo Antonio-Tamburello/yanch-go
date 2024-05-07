@@ -7,7 +7,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { CardComponent } from '@src/app/shared/components/card/card.component';
 import { FormComponent } from '@src/app/shared/components/form/form.component';
 import { Cities, City } from '../../models/dashboard.model';
@@ -28,6 +28,10 @@ const COMPONENTS = [FormComponent, CardComponent];
 export class CitiesComponent implements OnInit, OnDestroy {
   cities = signal<Cities>({} as Cities);
   citiesList = computed<City[]>(() => this.cities().cities);
+  
+  cityFilterName = signal<string>('');
+
+  citiesListFiltered = computed<City[]>(() => this.citiesList().filter(city => city.name.toLowerCase().includes(this.cityFilterName().toLowerCase())) );
 
   formModel: FormModel = {
     type: 'search',
@@ -66,4 +70,9 @@ export class CitiesComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.destroy$.next();
   }
+
+  filterCities(searchCity: string) {
+    this.cityFilterName.set(searchCity)
+  }
+
 }

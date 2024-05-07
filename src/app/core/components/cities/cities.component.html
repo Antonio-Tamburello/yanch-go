@@ -1,18 +1,15 @@
 <div class="cities">
   <div class="d-flex justify-content-center">
+
     <div class="my-3 cities__card">
-      <!-- <app-card [cardModel]="cardModel">
-        input field -->
-
-        <app-form [formModel]="formModel"  />
-
-      <!-- </app-card> -->
+      <app-form [formModel]="formModel" (searchValueChanges)="filterCities($event)" />
     </div>
+
   </div>
-  
-  @if (citiesList()) {
-  <div class="mx-3 cities__grid">
-    @for (city of citiesList(); track city) {
+
+  @if (citiesListFiltered()) {
+  <div class="mx-3 cities__grid" [ngClass]="{'cities__grid__element': citiesListFiltered().length <= 2, 'cities__grid__elements': citiesListFiltered().length > 2, }">
+    @for (city of citiesListFiltered(); track city) {
     <div>
       <app-card [cardModel]="cardModel">
         <pre>{{ city | json }}</pre>
@@ -22,3 +19,4 @@
   </div>
   }
 </div>
+

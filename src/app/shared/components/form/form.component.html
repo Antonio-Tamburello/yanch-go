@@ -23,32 +23,22 @@
         <label [for]="inputElement.label.toLowerCase().trim()">{{ inputElement.label }}</label>
 
         @if (formModel().type !== 'search') {
-          <input [type]="inputElement.inputType" [id]="inputElement.label.toLowerCase().trim()"
+        <input [type]="inputElement.inputType" [id]="inputElement.label.toLowerCase().trim()"
           [formControlName]="inputElement.label.toLowerCase().trim()" class="form-control"
           [ngClass]="{ 'is-invalid': form.get(inputElement.label.toLowerCase().trim())?.invalid && (form.get(inputElement.label.toLowerCase().trim())?.dirty || form.get(inputElement.label.toLowerCase().trim())?.touched),
           'is-valid': form.get(inputElement.label.toLowerCase().trim())?.valid && (form.get(inputElement.label.toLowerCase().trim())?.dirty || form.get(inputElement.label.toLowerCase().trim())?.touched) }"
           required>
-          <div
+        <div
           *ngIf="form.get(inputElement.label.toLowerCase().trim())?.invalid && (form.get(inputElement.label.toLowerCase().trim())?.dirty || form.get(inputElement.label.toLowerCase().trim())?.touched)"
           class="invalid-feedback">
           Invalid {{ inputElement.label }}
         </div>
-      } @else {
+        } @else {
         <input [type]="inputElement.inputType" [id]="inputElement.label.toLowerCase().trim()"
-        [formControlName]="inputElement.label.toLowerCase().trim()" class="form-control" required>
-      }
+          [formControlName]="inputElement.label.toLowerCase().trim()" class="form-control" required>
+        }
       </div>
-      <!-- <pre>{{ inputElement | json }}</pre> -->
-      <!-- <app-input
-      [inputElement]="inputElement"
-      [formControlName]="inputElement.label.toLowerCase().trim()"
-      [id]="inputElement.label.toLowerCase().trim()"
-      (valueChanges)="updateFormValue($event)"
-      /> -->
       }
-      <!-- {{ form.valid }}
-      {{ form.invalid }} -->
-
       @for (buttonElement of formModel().buttonElements; track buttonElement) {
       <div>
         <app-button [buttonConfig]="buttonElement" [isDisabled]="form.invalid"></app-button>
