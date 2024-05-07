@@ -20,5 +20,9 @@
     &__elements {
       grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
     }
+
+    img {
+      height: 10rem;
+    }
   }
 }

@@ -5,7 +5,7 @@ import { FormModel, FormOutputModel } from '@src/app/shared/models/form.model';
 import { IMAGES } from '../../../constants/images';
 import { ROUTE } from '../../../constants/route';
 import { LoginRegisterService } from '../../services/loginRegisterService.service';
-import { UserFacade } from '../../store/user/user.facade';
+import { UserFacade } from '../../../core/store/user/user.facade';
 
 @Component({
   selector: 'app-registration',

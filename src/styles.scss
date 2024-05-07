@@ -1,6 +1,7 @@
+@import 'variables';
 @import 'utilities';
 
 body {
   font-family: Poppins, Helvetica, Arial sans-serif;
-  background: linear-gradient(79.76deg, #2012bb .21%, #1b1340 99.36%);
+  background: $background-color;
 }

@@ -7,31 +7,39 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { Validators } from '@angular/forms';
 import { CardComponent } from '@src/app/shared/components/card/card.component';
 import { FormComponent } from '@src/app/shared/components/form/form.component';
-import { Cities, City } from '../../models/dashboard.model';
-import { Subject, Subscription, filter, takeUntil } from 'rxjs';
-import { DashboardFacade } from '../../store/dashboard/dashboard.facade';
-import { CardConfig } from '@src/app/shared/models/card.model';
 import { FormModel } from '@src/app/shared/models/form.model';
+import { Subject, Subscription, filter, map, takeUntil } from 'rxjs';
+import { Cities, City } from '../../models/dashboard.model';
+import { DashboardFacade } from '../../store/dashboard/dashboard.facade';
+import { ButtonConfig } from '@src/app/shared/models/button.model';
+import { ButtonComponent } from '@src/app/shared/components/button/button.component';
+import { RouterLink } from '@angular/router';
+import { ROUTE } from '@src/app/constants/route';
 
-const COMPONENTS = [FormComponent, CardComponent];
+const MODULES = [CommonModule, RouterLink];
+const COMPONENTS = [FormComponent, CardComponent, ButtonComponent];
 
 @Component({
   selector: 'app-cities',
   standalone: true,
-  imports: [CommonModule, ...COMPONENTS],
+  imports: [...MODULES, ...COMPONENTS],
   templateUrl: './cities.component.html',
   styleUrl: './cities.component.scss',
 })
 export class CitiesComponent implements OnInit, OnDestroy {
   cities = signal<Cities>({} as Cities);
   citiesList = computed<City[]>(() => this.cities().cities);
-  
+
   cityFilterName = signal<string>('');
 
-  citiesListFiltered = computed<City[]>(() => this.citiesList().filter(city => city.name.toLowerCase().includes(this.cityFilterName().toLowerCase())) );
+  citiesListFiltered = computed<City[]>(() =>
+    this.citiesList().filter((city) =>
+      city.name.toLowerCase().includes(this.cityFilterName().toLowerCase())
+    )
+  );
 
   formModel: FormModel = {
     type: 'search',
@@ -46,6 +54,16 @@ export class CitiesComponent implements OnInit, OnDestroy {
     ],
   };
 
+  buttonElement: ButtonConfig = {
+    id: 'explore',
+    classButtonType: 'btn-outline-primary',
+    typeButtonType: 'button',
+    label: 'Explore',
+    customClass: 'w-100',
+  };
+
+  public ROUTE = ROUTE;
+
   private destroy$ = new Subject<void>();
 
   /**
@@ -59,10 +77,6 @@ export class CitiesComponent implements OnInit, OnDestroy {
       this.cities.set(cities);
     });
 
-  cardModel: CardConfig = {
-    cardBodyCustomClass: 'px-5',
-  };
-
   ngOnInit() {
     this.dashboardFacade.cities();
   }
@@ -72,7 +86,6 @@ export class CitiesComponent implements OnInit, OnDestroy {
   }
 
   filterCities(searchCity: string) {
-    this.cityFilterName.set(searchCity)
+    this.cityFilterName.set(searchCity);
   }
-
 }

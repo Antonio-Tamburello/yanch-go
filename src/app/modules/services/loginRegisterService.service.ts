@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { LoginPayload, LoginResponse, RegisterPayload, RegisterResponse } from '../models/user.model';
+import { LoginPayload, LoginResponse, RegisterPayload, RegisterResponse } from '../../core/models/user.model';
 // import { environment } from '../../../../environments/environment';
 // import { ENDPOINTS } from '../../../constants/endpoints';
 

@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { UserFacade } from '../../store/user/user.facade';
+import { UserFacade } from '../../../core/store/user/user.facade';
 import { Subscription, filter } from 'rxjs';
 import { Validators } from '@angular/forms';
 import { ROUTE } from '../../../constants/route';

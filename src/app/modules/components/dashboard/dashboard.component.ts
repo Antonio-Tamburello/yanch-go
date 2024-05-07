@@ -5,9 +5,9 @@ import { NavBarComponent } from '@src/app/shared/components/navbar/navbar.compon
 import { ButtonConfig } from '@src/app/shared/models/button.model';
 import { NavbarConfig } from '@src/app/shared/models/navbar.model';
 import { Subject, Subscription } from 'rxjs';
-import { UserFacade } from '../../store/user/user.facade';
-import { UserState } from '../../store/user/user.reducer';
-import { CitiesComponent } from '../cities/cities.component';
+import { UserFacade } from '../../../core/store/user/user.facade';
+import { UserState } from '../../../core/store/user/user.reducer';
+import { CitiesComponent } from '../../../core/components/cities/cities.component';
 
 /**
  * Array of components used in the dashboard.

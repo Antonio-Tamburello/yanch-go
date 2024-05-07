@@ -4,7 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, switchMap } from 'rxjs';
 import { ROUTE } from '../../../constants/route';
 import { LoginResponse, RegisterResponse, UserData } from '../../models/user.model';
-import { LoginRegisterService } from '../../services/loginRegisterService.service';
+import { LoginRegisterService } from '../../../modules/services/loginRegisterService.service';
 import {
   logOut,
   logOutSuccess,
