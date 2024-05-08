@@ -1,5 +1,6 @@
-<!-- <button type="button" class="btn btn-primary" (click)="alertPopupService.show(alertPopupConfig())">SHOW ALERT TEST SUCCESS</button> -->
 <div class="overflow-x-hidden yanchware-container">
+  <app-navbar [navbarConfig]="navbarConfig" (onClickButton)="onClickButton($event)" />
+  
   <router-outlet />
 
   @if(isVisible()) {

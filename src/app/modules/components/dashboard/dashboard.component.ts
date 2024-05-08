@@ -8,6 +8,7 @@ import { Subject, Subscription } from 'rxjs';
 import { UserFacade } from '../../../core/store/user/user.facade';
 import { UserState } from '../../../core/store/user/user.reducer';
 import { CitiesComponent } from '../../../core/components/cities/cities.component';
+import { ROUTE } from '@src/app/constants/route';
 
 /**
  * Array of components used in the dashboard.
@@ -67,66 +68,6 @@ export class DashboardComponent implements OnDestroy {
     }
   );
 
-  /**
-   * Array of button configurations for the navbar.
-   * Each button configuration contains properties like classButtonType, typeButtonType, label, and customClass.
-   */
-  buttonsNavbar: ButtonConfig[] = [
-    {
-      id: 'homepage',
-      classButtonType: 'btn-link',
-      typeButtonType: 'button',
-      label: 'Homepage',
-      customClass: 'text-decoration-none text-white',
-    },
-    {
-      id: 'about',
-      classButtonType: 'btn-link',
-      typeButtonType: 'button',
-      label: 'About',
-      customClass: 'text-decoration-none text-white',
-    },
-  ];
-
-  /**
-   * Configuration for the logout button.
-   */
-  buttonLogOutConfig: ButtonConfig = {
-    id: 'logout',
-    classButtonType: 'btn-link',
-    typeButtonType: 'button',
-    label: 'Log out',
-    customClass: 'text-decoration-none text-white',
-  };
-
-  /**
-   * Configuration object for the navbar in the dashboard component.
-   */
-  navbarConfig: NavbarConfig = {
-    imgLogo: IMAGES.YANCHWAREGO_MINI_LOGO,
-    buttonsNavbarStart: this.buttonsNavbar,
-    buttonsNavbarEnd: [this.buttonLogOutConfig],
-  };
-
-  /**
-   * Handles the click event of a button in the dashboard component.
-   * @param button - The button configuration object.
-   */
-  onClickButton(button: ButtonConfig) {
-    switch (button.id) {
-      /**
-       * Logs out the user through UserFacade Pattern.
-       */
-      case 'logout': {
-        this.userFacade.logOut();
-        break;
-      }
-
-      default: {
-        break;
-      }
-    }
-  }
 
   /**
    * Lifecycle hook that is called when the component is about to be destroyed.
