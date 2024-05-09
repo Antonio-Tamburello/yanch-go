@@ -60,51 +60,6 @@ export class AppComponent {
   userFacade = inject(UserFacade);
 
   /**
-   * Array of button configurations for the navbar.
-   * Each button configuration contains properties like classButtonType, typeButtonType, label, and customClass.
-   */
-  buttonsNavbar: ButtonConfig[] = [
-    {
-      id: 'homepage',
-      classButtonType: 'btn-link',
-      typeButtonType: 'button',
-      label: 'Homepage',
-      customClass: 'text-decoration-none text-white',
-      routerLink: `/${ROUTE.DASHBOARD}`,
-    },
-    {
-      id: 'about',
-      classButtonType: 'btn-link',
-      typeButtonType: 'button',
-      label: 'Feel lucky!',
-      customClass: 'text-decoration-none text-white',
-      routerLink: `/${ROUTE.CITY}/${
-        Math.floor(Math.random() * (1 - 10 + 1)) + 1
-      }`,
-    },
-  ];
-
-  /**
-   * Configuration for the logout button.
-   */
-  buttonLogOutConfig: ButtonConfig = {
-    id: 'logout',
-    classButtonType: 'btn-link',
-    typeButtonType: 'button',
-    label: 'Log out',
-    customClass: 'text-decoration-none text-white',
-  };
-
-  /**
-   * Configuration object for the navbar in the dashboard component.
-   */
-  navbarConfig: NavbarConfig = {
-    imgLogo: IMAGES.YANCHWAREGO_MINI_LOGO,
-    buttonsNavbarStart: this.buttonsNavbar,
-    buttonsNavbarEnd: [this.buttonLogOutConfig],
-  };
-
-  /**
    * Subscription for the alert popup subject.
    */
   alertPopupSubject$: Subscription = this.alertPopupService.alertPopupSubject
@@ -113,24 +68,4 @@ export class AppComponent {
       this.alertPopupConfig.set(alertPopupConfig);
       this.isVisible.set(alertPopupConfig.isVisible);
     });
-
-  /**
-   * Handles the click event of a button in the dashboard component.
-   * @param button - The button configuration object.
-   */
-  onClickButton(button: ButtonConfig) {
-    switch (button.id) {
-      /**
-       * Logs out the user through UserFacade Pattern.
-       */
-      case 'logout': {
-        this.userFacade.logOut();
-        break;
-      }
-
-      default: {
-        break;
-      }
-    }
-  }
 }

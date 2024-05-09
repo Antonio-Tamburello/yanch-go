@@ -1,19 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, inject, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
+import { IMAGES } from '@src/app/constants/images';
 import { ROUTE } from '@src/app/constants/route';
 import { CityInfoResponse } from '@src/app/core/models/dashboard.model';
 import { DashboardFacade } from '@src/app/core/store/dashboard/dashboard.facade';
+import { UserFacade } from '@src/app/core/store/user/user.facade';
 import { BarChartComponent } from '@src/app/shared/components/bar-chart/bar-chart.component';
 import { ButtonComponent } from '@src/app/shared/components/button/button.component';
 import { CardComponent } from '@src/app/shared/components/card/card.component';
+import { NavBarComponent } from '@src/app/shared/components/navbar/navbar.component';
 import { StarRatingComponent } from '@src/app/shared/components/star-rating/star-rating.component';
 import { ButtonConfig } from '@src/app/shared/models/button.model';
 import { CardConfig } from '@src/app/shared/models/card.model';
+import { NavbarConfig } from '@src/app/shared/models/navbar.model';
 import { Subject, Subscription, filter, map, take, takeUntil } from 'rxjs';
 
 const MODULES = [CommonModule, RouterLink];
-const COMPONENTS = [CardComponent, ButtonComponent, BarChartComponent, StarRatingComponent];
+const COMPONENTS = [CardComponent, ButtonComponent, BarChartComponent, StarRatingComponent, NavBarComponent];
 
 /**
  * Represents the CityComponent class.
@@ -31,6 +35,12 @@ export class CityComponent implements OnDestroy {
    * The router object for navigating between routes.
    */
   router = inject(Router);
+
+    /**
+   * Inject the UserFacade Pattern.
+   **/
+    userFacade = inject(UserFacade);
+
 
   /**
    * The ID of the city.
@@ -75,6 +85,53 @@ export class CityComponent implements OnDestroy {
    */
   private destroy$ = new Subject<void>();
 
+
+  /**
+   * Array of button configurations for the navbar.
+   * Each button configuration contains properties like classButtonType, typeButtonType, label, and customClass.
+   */
+  buttonsNavbar: ButtonConfig[] = [
+    {
+      id: 'homepage',
+      classButtonType: 'btn-link',
+      typeButtonType: 'button',
+      label: 'Homepage',
+      customClass: 'text-decoration-none text-white',
+      routerLink: `/${ROUTE.DASHBOARD}`,
+    },
+    {
+      id: 'about',
+      classButtonType: 'btn-link',
+      typeButtonType: 'button',
+      label: 'Feel lucky!',
+      customClass: 'text-decoration-none text-white',
+      routerLink: `/${ROUTE.CITY}/${
+        Math.floor(Math.random() * 10) + 1
+      }`,
+    },
+  ];
+
+  /**
+   * Configuration for the logout button.
+   */
+  buttonLogOutConfig: ButtonConfig = {
+    id: 'logout',
+    classButtonType: 'btn-link',
+    typeButtonType: 'button',
+    label: 'Log out',
+    customClass: 'text-decoration-none text-white',
+  };
+
+  /**
+   * Configuration object for the navbar in the dashboard component.
+   */
+  navbarConfig: NavbarConfig = {
+    imgLogo: IMAGES.YANCHWAREGO_MINI_LOGO,
+    buttonsNavbarStart: this.buttonsNavbar,
+    buttonsNavbarEnd: [this.buttonLogOutConfig],
+  };
+
+
   /**
    * Subscription for router events related to navigation.
    * It listens for NavigationEnd events, extracts the city ID from the URL,
@@ -117,4 +174,24 @@ export class CityComponent implements OnDestroy {
     this.dashboardFacade.resetCity();
     this.destroy$.next();
   }
+
+    /**
+   * Handles the click event of a button in the dashboard component.
+   * @param button - The button configuration object.
+   */
+    onClickButton(button: ButtonConfig) {
+      switch (button.id) {
+        /**
+         * Logs out the user through UserFacade Pattern.
+         */
+        case 'logout': {
+          this.userFacade.logOut();
+          break;
+        }
+  
+        default: {
+          break;
+        }
+      }
+    }
 }
