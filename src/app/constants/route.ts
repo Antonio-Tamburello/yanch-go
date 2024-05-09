@@ -13,6 +13,11 @@ export const ROUTE = {
   REGISTER: 'register',
   
   /**
+   * The home route.
+   */
+  HOME: '',
+
+  /**
    * The dashboard route.
    */
   DASHBOARD: 'dashboard',

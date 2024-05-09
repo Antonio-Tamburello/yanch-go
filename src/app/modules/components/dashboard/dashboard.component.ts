@@ -1,14 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, computed, inject, signal } from '@angular/core';
-import { IMAGES } from '@src/app/constants/images';
 import { NavBarComponent } from '@src/app/shared/components/navbar/navbar.component';
-import { ButtonConfig } from '@src/app/shared/models/button.model';
-import { NavbarConfig } from '@src/app/shared/models/navbar.model';
 import { Subject, Subscription } from 'rxjs';
+import { CitiesComponent } from '../../../core/components/cities/cities.component';
 import { UserFacade } from '../../../core/store/user/user.facade';
 import { UserState } from '../../../core/store/user/user.reducer';
-import { CitiesComponent } from '../../../core/components/cities/cities.component';
-import { ROUTE } from '@src/app/constants/route';
 
 /**
  * Array of components used in the dashboard.
@@ -64,51 +60,6 @@ export class DashboardComponent implements OnDestroy {
   );
 
   /**
-   * Array of button configurations for the navbar.
-   * Each button configuration contains properties like classButtonType, typeButtonType, label, and customClass.
-   */
-  buttonsNavbar: ButtonConfig[] = [
-    {
-      id: 'homepage',
-      classButtonType: 'btn-link',
-      typeButtonType: 'button',
-      label: 'Homepage',
-      customClass: 'text-decoration-none text-white',
-      routerLink: `/${ROUTE.DASHBOARD}`,
-    },
-    {
-      id: 'about',
-      classButtonType: 'btn-link',
-      typeButtonType: 'button',
-      label: 'Feel lucky!',
-      customClass: 'text-decoration-none text-white',
-      routerLink: `/${ROUTE.CITY}/${
-        Math.floor(Math.random() * 10) + 1
-      }`,
-    },
-  ];
-
-  /**
-   * Configuration for the logout button.
-   */
-  buttonLogOutConfig: ButtonConfig = {
-    id: 'logout',
-    classButtonType: 'btn-link',
-    typeButtonType: 'button',
-    label: 'Log out',
-    customClass: 'text-decoration-none text-white',
-  };
-
-  /**
-   * Configuration object for the navbar in the dashboard component.
-   */
-  navbarConfig: NavbarConfig = {
-    imgLogo: IMAGES.YANCHWAREGO_MINI_LOGO,
-    buttonsNavbarStart: this.buttonsNavbar,
-    buttonsNavbarEnd: [this.buttonLogOutConfig],
-  };
-
-  /**
    * Lifecycle hook that is called when the component is about to be destroyed.
    * It is used to perform any necessary cleanup logic, such as unsubscribing from observables or
    * releasing resources.
@@ -118,23 +69,4 @@ export class DashboardComponent implements OnDestroy {
     this.destroy$.next();
   }
 
-  /**
-   * Handles the click event of a button in the dashboard component.
-   * @param button - The button configuration object.
-   */
-  onClickButton(button: ButtonConfig) {
-    switch (button.id) {
-      /**
-       * Logs out the user through UserFacade Pattern.
-       */
-      case 'logout': {
-        this.userFacade.logOut();
-        break;
-      }
-
-      default: {
-        break;
-      }
-    }
-  }
 }

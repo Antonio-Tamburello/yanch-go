@@ -5,6 +5,7 @@ import { RegistrationComponent } from './modules/components/registration/registr
 import { DashboardComponent } from './modules/components/dashboard/dashboard.component';
 import { LoginGuard } from './guards/login.guard';
 import { CityComponent } from './modules/components/city/city.component';
+import { HomeComponent } from './modules/components/home/home.component';
 
 /**
  * Defines the routes for the application.
@@ -20,26 +21,31 @@ export const routes: Routes = [
      */
     { path: ROUTE.REGISTER, component: RegistrationComponent },
 
-    /**
-     * Route for the dashboard page.
-     * Requires authentication using the LoginGuard.
-     */
-    { path: ROUTE.DASHBOARD, component: DashboardComponent, canActivate: [LoginGuard] },
+    
+    
+    { path: ROUTE.HOME, component: HomeComponent, canActivate: [LoginGuard], children:[
+        /**
+         * Route for the dashboard page.
+         * Requires authentication using the LoginGuard.
+         */
+        { path: ROUTE.DASHBOARD, component: DashboardComponent, canActivate: [LoginGuard] },
+        
+        /**
+         * Route for a specific city page.
+         * Requires authentication using the LoginGuard.
+         * The city ID is passed as a parameter.
+         */
+        { path: `${ROUTE.CITY}/:id`, component: CityComponent, canActivate: [LoginGuard] },
+    ] },
 
-    /**
-     * Route for a specific city page.
-     * Requires authentication using the LoginGuard.
-     * The city ID is passed as a parameter.
-     */
-    { path: `${ROUTE.CITY}/:id`, component: CityComponent, canActivate: [LoginGuard] },
     
     /**
      * Default route that redirects to the dashboard page.
      */
-    { path: '', redirectTo: ROUTE.DASHBOARD, pathMatch: 'full' },
+    { path: '', redirectTo: ROUTE.HOME, pathMatch: 'full' },
 
     /**
-     * Wildcard route that redirects to the dashboard page for any other unknown routes.
+     * Wildcard route that redirects to the home page for any other unknown routes.
      */
-    { path: '**', redirectTo: ROUTE.DASHBOARD },
+    { path: '**', redirectTo: ROUTE.HOME },
 ];

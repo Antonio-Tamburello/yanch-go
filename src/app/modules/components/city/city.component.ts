@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, inject, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
-import { IMAGES } from '@src/app/constants/images';
 import { ROUTE } from '@src/app/constants/route';
 import { CityInfoResponse } from '@src/app/core/models/dashboard.model';
 import { DashboardFacade } from '@src/app/core/store/dashboard/dashboard.facade';
@@ -13,11 +12,16 @@ import { NavBarComponent } from '@src/app/shared/components/navbar/navbar.compon
 import { StarRatingComponent } from '@src/app/shared/components/star-rating/star-rating.component';
 import { ButtonConfig } from '@src/app/shared/models/button.model';
 import { CardConfig } from '@src/app/shared/models/card.model';
-import { NavbarConfig } from '@src/app/shared/models/navbar.model';
 import { Subject, Subscription, filter, map, take, takeUntil } from 'rxjs';
 
 const MODULES = [CommonModule, RouterLink];
-const COMPONENTS = [CardComponent, ButtonComponent, BarChartComponent, StarRatingComponent, NavBarComponent];
+const COMPONENTS = [
+  CardComponent,
+  ButtonComponent,
+  BarChartComponent,
+  StarRatingComponent,
+  NavBarComponent,
+];
 
 /**
  * Represents the CityComponent class.
@@ -36,11 +40,10 @@ export class CityComponent implements OnDestroy {
    */
   router = inject(Router);
 
-    /**
+  /**
    * Inject the UserFacade Pattern.
    **/
-    userFacade = inject(UserFacade);
-
+  userFacade = inject(UserFacade);
 
   /**
    * The ID of the city.
@@ -71,8 +74,8 @@ export class CityComponent implements OnDestroy {
    * Configuration object for the card.
    */
   cardConfig: CardConfig = {
-    cardCustomClass: 'h-100'
-  }
+    cardCustomClass: 'h-100',
+  };
 
   /**
    * Inject the DashboardFacade Pattern.
@@ -84,53 +87,6 @@ export class CityComponent implements OnDestroy {
    * It emits a void value when the component is destroyed.
    */
   private destroy$ = new Subject<void>();
-
-
-  /**
-   * Array of button configurations for the navbar.
-   * Each button configuration contains properties like classButtonType, typeButtonType, label, and customClass.
-   */
-  buttonsNavbar: ButtonConfig[] = [
-    {
-      id: 'homepage',
-      classButtonType: 'btn-link',
-      typeButtonType: 'button',
-      label: 'Homepage',
-      customClass: 'text-decoration-none text-white',
-      routerLink: `/${ROUTE.DASHBOARD}`,
-    },
-    {
-      id: 'about',
-      classButtonType: 'btn-link',
-      typeButtonType: 'button',
-      label: 'Feel lucky!',
-      customClass: 'text-decoration-none text-white',
-      routerLink: `/${ROUTE.CITY}/${
-        Math.floor(Math.random() * 10) + 1
-      }`,
-    },
-  ];
-
-  /**
-   * Configuration for the logout button.
-   */
-  buttonLogOutConfig: ButtonConfig = {
-    id: 'logout',
-    classButtonType: 'btn-link',
-    typeButtonType: 'button',
-    label: 'Log out',
-    customClass: 'text-decoration-none text-white',
-  };
-
-  /**
-   * Configuration object for the navbar in the dashboard component.
-   */
-  navbarConfig: NavbarConfig = {
-    imgLogo: IMAGES.YANCHWAREGO_MINI_LOGO,
-    buttonsNavbarStart: this.buttonsNavbar,
-    buttonsNavbarEnd: [this.buttonLogOutConfig],
-  };
-
 
   /**
    * Subscription for router events related to navigation.
@@ -160,8 +116,8 @@ export class CityComponent implements OnDestroy {
         return Object.keys(city).length > 0;
       }),
       take(1),
-      takeUntil(this.destroy$),
-      )
+      takeUntil(this.destroy$)
+    )
     .subscribe((city: CityInfoResponse) => {
       this.city.set(city);
     });
@@ -174,24 +130,4 @@ export class CityComponent implements OnDestroy {
     this.dashboardFacade.resetCity();
     this.destroy$.next();
   }
-
-    /**
-   * Handles the click event of a button in the dashboard component.
-   * @param button - The button configuration object.
-   */
-    onClickButton(button: ButtonConfig) {
-      switch (button.id) {
-        /**
-         * Logs out the user through UserFacade Pattern.
-         */
-        case 'logout': {
-          this.userFacade.logOut();
-          break;
-        }
-  
-        default: {
-          break;
-        }
-      }
-    }
 }
